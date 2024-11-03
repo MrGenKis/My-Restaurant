@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Gestion des Plats</title>
+</head>
+<body>
+    <h1>Liste des Plats</h1>
+    <a th:href="@{/admin/dishes/new}">Ajouter un nouveau plat</a>
+    
+    <table>
+        <tr>
+            <th>Nom</th>
+            <th>Description</th>
+            <th>Prix</th>
+            <th>Allergènes</th>
+            <th>Action</th>
+        </tr>
+        <tr th:each="dish : ${dishes}">
+            <td th:text="${dish.name}"></td>
+            <td th:text="${dish.description}"></td>
+            <td th:text="${dish.price}"></td>
+            <td th:text="${dish.allergens}"></td>
+            <td>
+                <a th:href="@{/admin/dishes/delete/{id}(id=${dish.id})}">Supprimer</a>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

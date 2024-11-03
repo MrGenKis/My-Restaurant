@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Créer un nouveau menu</title>
+</head>
+<body>
+    <h1>Créer un nouveau menu</h1>
+
+    <form th:action="@{/admin/menus}" th:object="${menu}" method="post">
+        <div>
+            <label for="name">Nom du menu :</label>
+            <input type="text" id="name" th:field="*{name}" />
+        </div>
+        <div>
+            <label for="description">Description du menu :</label>
+            <input type="text" id="description" th:field="*{description}" />
+        </div>
+
+        <h2>Ajouter des plats</h2>
+        <div id="dishes-container">
+            <div th:each="dish, stat : *{dishes}">
+                <div>
+                    <label for="dish-name">Nom du plat :</label>
+                    <input type="text" th:field="*{dishes[__${stat.index}__].name}" />
+                </div>
+                <div>
+                    <label for="dish-description">Description :</label>
+                    <input type="text" th:field="*{dishes[__${stat.index}__].description}" />
+                </div>
+                <div>
+                    <label for="dish-price">Prix :</label>
+                    <input type="number" th:field="*{dishes[__${stat.index}__].price}" step="0.01" />
+                </div>
+                <div>
+                    <label for="dish-allergens">Allergènes :</label>
+                    <input type="text" th:field="*{dishes[__${stat.index}__].allergens}" />
+                </div>
+                <button type="button" onclick="removeDish(this)">Supprimer ce plat</button>
+            </div>
+        </div>
+
+        <button type="button" onclick="addDish()">Ajouter un plat</button>
+
+        <div>
+            <button type="submit">Créer le menu</button>
+        </div>
+    </form>
+
+    <div id="dish-template" style="display:none;">
+        <div>
+            <label for="dish-name">Nom du plat :</label>
+            <input type="text" name="dishes[__index__].name" />
+        </div>
+        <div>
+            <label for="dish-description">Description :</label>
+            <input type="text" name="dishes[__index__].description" />
+        </div>
+        <div>
+            <label for="dish-price">Prix :</label>
+            <input type="number" name="dishes[__index__].price" step="0.01" />
+        </div>
+        <div>
+            <label for="dish-allergens">Allergènes :</label>
+            <input type="text" name="dishes[__index__].allergens" />
+        </div>
+        <button type="button" onclick="removeDish(this)">Supprimer ce plat</button>
+    </div>
+
+    <script type="text/javascript">
+        let dishIndex = /*[[${#lists.size(menu.dishes)}]]*/ 0;  // Initier avec la taille actuelle des plats
+
+        function addDish() {
+            const dishTemplate = document.getElementById("dish-template").cloneNode(true);
+            dishTemplate.style.display = "block";
+            dishTemplate.removeAttribute("id");
+
+            // Remplacer __index__ par l'indice actuel
+            dishTemplate.innerHTML = dishTemplate.innerHTML.replace(/__index__/g, dishIndex);
+            dishIndex++;  // Incrémenter l'indice pour le prochain plat
+
+            document.getElementById("dishes-container").appendChild(dishTemplate);
+        }
+
+        function removeDish(button) {
+            button.parentElement.remove();
+        }
+    </script>
+</body>
+</html>

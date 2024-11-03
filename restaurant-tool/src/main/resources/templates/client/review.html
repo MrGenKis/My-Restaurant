@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Laissez un avis</title>
+</head>
+<body>
+    <h2>Laissez un avis pour <span th:text="${restaurant.restaurantName}">Nom du restaurant</span></h2>
+    <form th:action="@{'/restaurant/' + ${restaurant.id} + '/reviews'}" th:object="${review}" method="post">        <div>
+            <label for="name">Nom :</label>
+            <input type="text" th:field="*{name}" required/>
+        </div>
+        <div>
+            <label for="email">Email (facultatif) :</label>
+            <input type="email" th:field="*{email}"/>
+        </div>
+        <div>
+            <label for="rating">Note :</label>
+            <select th:field="*{rating}">
+                <option value="1">1 étoile</option>
+                <option value="2">2 étoiles</option>
+                <option value="3">3 étoiles</option>
+                <option value="4">4 étoiles</option>
+                <option value="5">5 étoiles</option>
+            </select>
+        </div>
+        <div>
+            <label for="comment">Commentaire :</label>
+            <textarea th:field="*{comment}"></textarea>
+        </div>
+        <div>
+            <button type="submit">Envoyer l'avis</button>
+        </div>
+    </form>
+</body>
+</html>

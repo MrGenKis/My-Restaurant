@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Ajouter un Plat</title>
+</head>
+<body>
+    <h1>Ajouter un nouveau Plat</h1>
+
+    <form th:action="@{/admin/dishes}" th:object="${dish}" method="post">
+        <div>
+            <label for="name">Nom :</label>
+            <input type="text" id="name" th:field="*{name}" />
+        </div>
+        <div>
+            <label for="description">Description :</label>
+            <textarea id="description" th:field="*{description}"></textarea>
+        </div>
+        <div>
+            <label for="price">Prix :</label>
+            <input type="text" id="price" th:field="*{price}" />
+        </div>
+        <div>
+            <label for="allergens">Allergènes :</label>
+            <input type="text" id="allergens" th:field="*{allergens}" />
+        </div>
+        <button type="submit">Enregistrer</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Configuration du Restaurant</title>
+</head>
+<body>
+    <h1>Configurer le Restaurant</h1>
+    <form th:action="@{/config}" th:object="${config}" method="post" enctype="multipart/form-data">
+        <div>
+            <label for="restaurantName">Nom du restaurant :</label>
+            <input type="text" id="restaurantName" th:field="*{restaurantName}" required />
+        </div>
+        <div>
+            <label for="url">URL :</label>
+            <input type="text" id="url" th:field="*{url}" required />
+        </div>
+        <div>
+            <label for="colorTheme">Couleur des liens :</label>
+            <input type="color" id="colorTheme" th:field="*{colorTheme}" required />
+        </div>
+        <div>
+            <label for="bannerImageFile">Bannière :</label>
+            <input type="file" id="bannerImageFile" th:field="*{bannerImageFile}" />
+        </div>
+        <div>
+            <label for="address">Adresse :</label>
+            <input type="text" id="address" th:field="*{address}" required />
+        </div>
+        <div>
+            <label for="contactInfo">Informations de contact :</label>
+            <input type="text" id="contactInfo" th:field="*{contactInfo}" required />
+        </div>
+
+        <div>
+            <label for="adminUsername">Nom d'utilisateur Admin :</label>
+            <input type="text" id="adminUsername" name="adminUsername" required />
+        </div>
+        <div>
+            <label for="adminPassword">Mot de passe Admin :</label>
+            <input type="password" id="adminPassword" name="adminPassword" required />
+        </div>
+
+        <div>
+            <button type="submit">Enregistrer</button>
+        </div>
+    </form>
+</body>
+</html>

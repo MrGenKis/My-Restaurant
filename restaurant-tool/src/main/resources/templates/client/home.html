@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${restaurant.restaurantName}">Restaurant</title>
+    <style>
+      /* Styling for a restaurant website, inspired by high-end establishments */
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #343a40;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+header {
+    text-align: center;
+    background-color: #343a40;
+    color: #ffffff;
+    padding: 40px 20px;
+    margin-bottom: 50px;
+    position: relative;
+}
+
+header img {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    opacity: 0.8;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-size: 3rem;
+    margin: 0;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -20%);
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+header p {
+    font-size: 1.1rem;
+}
+
+section {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+}
+
+h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 10px;
+}
+
+.menu {
+    background: #ffffff;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+}
+
+.menu h3 {
+    font-size: 1.8rem;
+    color: #007bff;
+    margin-bottom: 15px;
+}
+
+.menu p {
+    font-size: 1.1rem;
+    color: #6c757d;
+}
+
+.dish {
+    margin-left: 20px;
+    font-size: 1.1rem;
+    color: #495057;
+    padding: 10px 0;
+    border-bottom: 1px dashed #d3d3d3;
+}
+
+.dish:last-child {
+    border-bottom: none;
+}
+
+.price {
+    font-weight: bold;
+    color: #dc3545;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+ul li {
+    margin-bottom: 15px;
+}
+
+button {
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Reviews Section */
+section.reviews {
+    background: #f1f1f1;
+    padding: 30px;
+    border-radius: 10px;
+    margin-top: 50px;
+}
+
+.review {
+    margin-bottom: 20px;
+    padding: 15px;
+    border-left: 4px solid #17a2b8;
+    background: #ffffff;
+}
+
+.review strong {
+    font-size: 1.2rem;
+    color: #007bff;
+}
+
+.review small {
+    display: block;
+    color: #6c757d;
+    margin-top: 5px;
+}
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #343a40;
+    color: #ffffff;
+    margin-top: 40px;
+    font-size: 0.9rem;
+}
+
+.footer a {
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer a:hover {
+    color: #007bff;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <img th:src="@{/images/banner.jpg}" alt="Bannière du restaurant" style="width: 100%; max-height: 300px;">
+        <h1 th:text="${restaurant.restaurantName}">Nom du restaurant</h1>
+        <p><strong>Email :</strong> <span th:text="${restaurant.contactInfo}">Contact</span></p>
+        <p><strong>Adresse :</strong> <span th:text="${restaurant.address}">Adresse du restaurant</span></p>
+    </header>
+
+    <section>
+        <h2>Bienvenue sur notre site !</h2>
+        <p>Nous sommes ravis de vous accueillir.</p>
+    </section>
+
+    <section>
+        <h2>Nos Plats</h2>
+        <div th:each="menu : ${menus}">
+            <div class="menu">
+                <h3 th:text="${menu.name}">Nom du menu</h3>
+                <p th:text="${menu.description}">Description du menu</p>
+
+                <h4>Menu disponibles :</h4>
+                <ul>
+                    <li th:each="dish : ${menu.dishes}" class="dish">
+                        <p>Plat : <strong th:text="${dish.name}">Nom du plat</strong></p>
+                        <p th:if="${dish.description}">Description : <span th:text="${dish.description}"></span></p>
+                        <p th:if="${dish.price}">Prix : <span th:text="${dish.price}">0.0</span> €</p>
+                        <p th:if="${dish.allergens}">Allergènes : <span th:text="${dish.allergens}"></span></p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Derniers avis</h2>
+        <div th:each="review : ${reviews}">
+            <p><strong th:text="${review.name}"></strong> a donné une note de 
+            <span th:text="${review.rating}"></span> étoiles.</p>
+            <p th:text="${review.comment}"></p>
+            <small th:text="${review.date}">Date de l'avis</small>
+        </div>
+    </section>
+</body>
+</html>

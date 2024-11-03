@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Accueil</title>
+    <style>
+    /* Styling for a restaurant website, inspired by high-end establishments */
+    body {
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+        background-color: #f2e6d9;
+        color: #343a40;
+        margin: 0;
+        padding: 0;
+        line-height: 1.6;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        flex-direction: column;
+    }
+    
+    .container {
+        max-width: 900px;
+        width: 100%;
+        background: rgba(193, 106, 106, 0.9);
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    
+    header {
+        text-align: center;
+        background-color: rgba(52, 58, 64, 0.8);
+        color: #eb7a7a;
+        padding: 40px 20px;
+        margin-bottom: 50px;
+        position: relative;
+    }
+    
+    header img {
+        width: 100%;
+        max-height: 300px;
+        object-fit: cover;
+        opacity: 0.8;
+        margin-bottom: 20px;
+    }
+    
+    header h1 {
+        font-size: 3rem;
+        margin: 0;
+        position: absolute;
+        top: 20%;
+        left: 50%;
+        transform: translate(-50%, -20%);
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+    }
+    
+    header p {
+        font-size: 1.1rem;
+    }
+    
+    h2 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #e9ecef;
+        padding-bottom: 10px;
+    }
+    
+    .menu {
+        background: rgba(151, 187, 114, 0.9); /* Transparent white background for better readability */
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+        padding: 40px;
+        margin: 20px auto;
+        border-radius: 15px;
+        max-width: 600px;
+    }
+    
+    .menu h3 {
+        font-size: 1.8rem;
+        color: #007bff;
+        margin-bottom: 15px;
+    }
+    
+    .menu p {
+        font-size: 1.1rem;
+        color: #6c757d;
+    }
+    
+    .dish {
+        margin-left: 20px;
+        font-size: 1.1rem;
+        color: #495057;
+        padding: 10px 0;
+        border-bottom: 1px dashed #d3d3d3;
+    }
+    
+    .dish:last-child {
+        border-bottom: none;
+    }
+    
+    .price {
+        font-weight: bold;
+        color: #dc3545;
+    }
+    
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    ul li {
+        margin-bottom: 15px;
+    }
+    
+    button {
+        background-color: #007bff;
+        color: #be4949;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    
+    button:hover {
+        background-color: #0056b3;
+    }
+    
+    /* Reviews Section */
+    section.reviews {
+        background: rgba(113, 44, 44, 0.9);
+        padding: 30px;
+        border-radius: 10px;
+        margin-top: 50px;
+    }
+    
+    .review {
+        margin-bottom: 20px;
+        padding: 15px;
+        border-left: 4px solid #17a2b8;
+        background: rgba(230, 118, 118, 0.9);
+    }
+    
+    .review strong {
+        font-size: 1.2rem;
+        color: #007bff;
+    }
+    
+    .review small {
+        display: block;
+        color: #6c757d;
+        margin-top: 5px;
+    }
+    
+    .footer {
+        text-align: center;
+        padding: 20px;
+        background-color: rgba(52, 58, 64, 0.9);
+        color: #db5050;
+        margin-top: 40px;
+        font-size: 0.9rem;
+    }
+    
+    .footer a {
+        color: #4e69ca;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+    
+    .footer a:hover {
+        color: #007bff;
+    }
+    
+    /* Homepage Styling */
+    .homepage {
+        text-align: center;
+        padding: 50px 20px;
+        margin-bottom: 20px;
+    }
+    
+    .homepage h1 {
+        font-size: 2.5rem;
+        margin-bottom: 30px;
+        color: #343a40;
+        text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+    }
+    
+    .homepage a {
+        display: inline-block;
+        background-color: #28a745;
+        color: #715bd1;
+        padding: 15px 30px;
+        margin: 10px;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+    
+    .homepage a:hover {
+        background-color: #218838;
+    }
+    
+    /* Restaurant List Styling */
+    .restaurant-list {
+        max-width: 800px;
+        margin: auto;
+        padding: 20px;
+        background: rgba(238, 127, 127, 0.9);
+        border-radius: 15px;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+        margin-bottom: 20px;
+    }
+    
+    .restaurant-list ul {
+        list-style: none;
+        padding: 0;
+    }
+    
+    .restaurant-list li {
+        background: rgba(86, 142, 83, 0.9);
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .restaurant-list a {
+        color: #007bff;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s;
+    }
+    
+    .restaurant-list a:hover {
+        color: #0056b3;
+    }
+    
+    .restaurant-list .review-link {
+        background-color: #ffc107;
+        color: #343a40;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+    
+    .restaurant-list .review-link:hover {
+        background-color: #e0a800;
+    }
+</style>    
+        
+</head>
+<body>
+    <h1>Bienvenue sur votre site de restaurant</h1>
+
+    <a th:href="@{/config}">Inscription professionnelle</a>
+    <a th:href="@{/login}">Connexion professionnelle</a>
+
+    <h2>Restaurants disponibles</h2>
+    <ul>
+        <li th:each="restaurant : ${restaurants}">
+            <a th:href="@{'/restaurant/' + ${restaurant.id}}" th:text="${restaurant.restaurantName}">Nom du restaurant</a>
+            <a th:href="@{'/restaurant/' + ${restaurant.id} + '/reviews/new'}">Donner un avis</a>
+        </li>
+    </ul>
+</body>
+</html>

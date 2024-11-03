@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Modifier le menu</title>
+</head>
+<body>
+    <h1>Modifier le menu</h1>
+
+    <form th:action="@{/admin/menus/update/{id}(id=${menu.id})}" th:object="${menu}" method="post">
+        <div>
+            <label for="name">Nom du menu :</label>
+            <input type="text" id="name" th:field="*{name}" />
+        </div>
+
+        <div>
+            <label for="description">Description du menu :</label>
+            <textarea id="description" th:field="*{description}"></textarea>
+        </div>
+
+        <div>
+            <button type="submit">Mettre à jour le menu</button>
+        </div>
+    </form>
+</body>
+</html>

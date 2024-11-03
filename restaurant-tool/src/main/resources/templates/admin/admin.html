@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Dashboard</title>
+</head>
+<body>
+    <h1>Bienvenue sur la gestion de votre restaurant : <span th:text="${restaurantName}"></span></h1>
+    <p>Vous pouvez gérer votre restaurant ici.</p>
+    
+    <a th:href="@{/admin/menus}">Gérer les menus</a>
+    
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Se déconnecter</button>
+    </form>
+</body>
+</html>
